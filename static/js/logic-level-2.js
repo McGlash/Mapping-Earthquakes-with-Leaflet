@@ -64,7 +64,7 @@ function mapDisplay () {
       },
     // Call pop-up for each feature
     onEachFeature: function(feature, layer) {
-      layer.bindPopup("<h1> Magnitude: " + feature.properties.mag+ "</h1> <hr> <h2>" + feature.properties.place + "</h2>");
+      layer.bindPopup("<h1> Magnitude: </h1> <h2> " + feature.properties.mag+ "</h2> <hr> <h1> Location: </h1> <h2>" + feature.properties.place + "</h2>");
       }
     }).addTo(earthquakes);
   });

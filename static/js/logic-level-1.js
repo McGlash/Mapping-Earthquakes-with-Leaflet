@@ -38,6 +38,7 @@ function mapDisplay () {
     }).addTo(earthQuakeMap);
 
   mapLegend(earthQuakeMap);
+  
 
   });
 
