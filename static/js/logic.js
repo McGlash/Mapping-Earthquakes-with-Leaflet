@@ -44,16 +44,20 @@ function mapDisplay () {
     Satellite: satellite
   };
 
-  // Create a GeoJSON layer containing the features array on the plate data object
-  var platePolygons = d3.json(plateURL, function(data) {
+  // Create a GeoJSON layer containing the features array from the plate data 
+  var platePolygons = new L.LayerGroup();
+
+  d3.json(plateURL, function(data) {
         L.geoJSON(data, {
           style: plateStyle
         })
-        .addTo(earthQuakeMap)
+        .addTo(platePolygons)
         });
 
-  // // Get request to URL
-  var earthquakes = d3.json(earthquakeURL, function(data) {
+  // Create a GeoJSON layer containing the features array from the earthquake data 
+  var earthquakes = new L.LayerGroup();
+
+  d3.json(earthquakeURL, function(data) {
     L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, markerStyle(feature));
@@ -62,13 +66,13 @@ function mapDisplay () {
     onEachFeature: function(feature, layer) {
       layer.bindPopup("<h1> Magnitude: " + feature.properties.mag+ "</h1> <hr> <h2>" + feature.properties.place + "</h2>");
       }
-    }).addTo(earthQuakeMap);
+    }).addTo(earthquakes);
   });
 
   // create Overlay layer that can be toggled on or off
   var overlayMaps = {
     "Fault line": platePolygons,
-    //Earthquakes: earthquakes
+    Earthquakes: earthquakes
     };
   
     // Create the map 
@@ -76,11 +80,11 @@ function mapDisplay () {
       center: [0, 0],
       zoom: 3,
       worldCopyJump: true,
-      layers: [satellite]
+      layers: [satellite, earthquakes, platePolygons]
     });
 
   // Pass map layers into layer control and add the layer control to the map
-  L.control.layers(baseMaps, null, {collapsed:false}).addTo(earthQuakeMap);
+  L.control.layers(baseMaps, overlayMaps, {collapsed:false}).addTo(earthQuakeMap);
 
   //call legend function
   mapLegend(earthQuakeMap);
