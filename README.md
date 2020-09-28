@@ -5,6 +5,8 @@
 ![1-Logo](Images/1-Logo.png)
 I developed a dashboard using leaflet to visualize USGS earthquake data. The USGS is responsible for providing scientific data about natural hazards, the health of ecosystems and environment; and the impacts of climate and land-use change. They collect a massive amount of data from all over the world each day. 
 
+Deployed > https://mcglash.github.io/Mapping-Earthquakes-with-Leaflet/
+
 ### Basic Visualization
 
 1. **Data source**
